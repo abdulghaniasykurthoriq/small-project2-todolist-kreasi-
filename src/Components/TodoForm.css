@@ -1,0 +1,15 @@
+.todo-form{
+    display: flex;
+    justify-content: center;
+    width: 100wh;
+    margin-top: 25px;
+}
+.input-formz{
+    width: 400px;
+    height: 25px;
+    border-radius: 5px;
+}
+.submit-btn{
+    width: 100px;
+    border-radius: 5px;
+}

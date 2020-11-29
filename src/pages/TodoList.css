@@ -1,0 +1,23 @@
+.todo-list{
+    background-color: black;
+    width: 100wh;
+    text-align: center;
+    margin: 20px auto;
+    
+}
+
+.todoListAppz{
+    background-color: white;
+    border-radius: 5px;
+    max-width: 600px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+.datar{
+    display: flex;
+}
+.ceklis{
+    margin: 0 10px;
+}
+
