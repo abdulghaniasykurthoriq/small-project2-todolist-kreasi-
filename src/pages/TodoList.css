@@ -16,8 +16,10 @@
 }
 .datar{
     display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 .ceklis{
-    margin: 0 10px;
+    margin: auto 10px;
 }
 

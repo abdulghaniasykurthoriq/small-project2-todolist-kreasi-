@@ -1,17 +1,38 @@
-import React from "react";
+import React, {useRef} from "react";
 import EditForm from "../Components/EditForm";
 import Todo from "../Components/Todo";
 import TodoForm from "../Components/TodoForm";
 import './TodoList.css'
+import useDoubleClick from 'use-double-click'
 
 
-let data;
+let obj;
+
+
+const List = ({onDouble, obj, removeTodo}) => {
+  const buttonRef = useRef()
+
+  useDoubleClick({
+    onDoubleClick: (e) => {
+      onDouble(obj)
+    }, ref: buttonRef
+  })
+
+
+  return <div className='datar'>
+    <p ref={buttonRef} className='todo'>
+      {obj.text}
+    </p>
+    <button onClick={removeTodo}>x</button>
+  </div>
+}
 class TodoListPage extends React.Component {
   state = {
     todos: [{ text: "Text 1", id:'1' }, { text: "Text 2", id:'2' }, { text: "Text 3", id:'3' }],
     newValue: "",
     inputForm: false,
-    editIndex:null
+    idEdit:{},
+    editIndex:{}
   };
 
   setTodos = (todos) => this.setState({ todos });
@@ -38,50 +59,80 @@ class TodoListPage extends React.Component {
 
   onDoubleClick = (event) => {
     console.log('-> Edit')
-    console.log(data)
-    data = event.target.outerText
+    console.log(obj)
+    obj = event.target.outerText
     this.setState({
 
       inputForm: !this.state.inputForm
     })
   }
 
-  handleEdit = (e, id) => {
-    e.preventDefault();
-    if (this.state.todos.id === id) return;
-    this.setState({
-      todos:''
-    })
-  }
-  handleZ = (e) => {
-    console.log(e)
-  }
-  
 
   render() {
-    
+
+
     return (
       <div className="todo-list">
         <h1>Todo List</h1>
         {this.state.todos.map((todo, index) => (
           <div className="todoListAppz" key={index}>
             <div className='datar'> <div className='ceklis'> √  </div>
-            <Todo todo={todo} 
-                  onDoubleClick={this.onDoubleClick}
+          <List
+            onDouble={(data) => {
+              console.log(data)
+              this.setState({
+                editIndex:data,
+                inputForm: !this.state.inputForm,
+                idEdit: index
+              })
+            }}
+            obj={todo}
+            removeTodo={()=> this.removeTodo(index)}
             />
-            </div>
             
-            <button onClick={()=> this.removeTodo(index)}>x</button> 
+
+
+            </div>
+
           </div>
         ))}
 
         {this.state.inputForm ? <EditForm 
-                  onSubmit={this.handleEdit}
-                  onValueChange={(e) =>  this.handleZ (e.target.value)}
+
+                  
+                  onSubmit={()=> {
+                    console.log(this.state.idEdit, 'ind')
+                    const newData = this.state.todos.map((val, index) =>{
+                      if (index === this.state.idEdit){
+                        return this.state.editIndex
+                      }
+                      return val
+                    })
+                    this.setState({
+                      todos:newData,
+                      newValue:'',
+                      inputForm:false,
+                    })
+                  }}
+                  value={this.state.editIndex.text}
+
+                  onValueChanged={(e)=>{
+                    this.setState({
+                      editIndex:{
+                        ...this.state.editIndex,
+                        text:e.target.value
+                      }
+                    })
+
+                  }}
         /> :
 
 
         <TodoForm
+          
+
+
+
           onSubmit={this.handleSubmit}
           onValueChange={(value) =>
             this.setState({
