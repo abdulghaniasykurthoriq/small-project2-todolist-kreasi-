@@ -1,5 +1,5 @@
 .todo-list{
-    background-color: black;
+    background-color:  rgb(143, 89, 50);
     width: 100wh;
     text-align: center;
     margin: 20px auto;
@@ -22,4 +22,20 @@
 .ceklis{
     margin: auto 10px;
 }
-
+.removeTodo{
+    background-color: blue;
+    color: wheat;
+    height: 30px;
+    margin:auto 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.removeAllTodo{
+    padding: 10px;
+    margin-top: 10px;
+    background-color: blue;
+    color: wheat;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+}

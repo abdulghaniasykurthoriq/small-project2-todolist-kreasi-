@@ -1,6 +1,6 @@
 body{
-  background-color: black;
-  color: rgb(23, 158, 192);
+  background-color: rgb(143, 89, 50);
+  color: rgb(112, 160, 108);
 }
 
 .App{
@@ -9,3 +9,4 @@ body{
   width:400px;
   margin: 40px auto;
 }
+

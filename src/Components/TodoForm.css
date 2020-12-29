@@ -12,4 +12,6 @@
 .submit-btn{
     width: 100px;
     border-radius: 5px;
+    background-color: blue;
+    color: wheat;
 }

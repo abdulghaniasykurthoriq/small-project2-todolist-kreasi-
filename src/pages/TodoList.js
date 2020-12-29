@@ -19,11 +19,14 @@ const List = ({onDouble, obj, removeTodo}) => {
   })
 
 
+  // style={{'text-decoration':'line-through' }}
   return <div className='datar'>
     <p ref={buttonRef} className='todo'>
       {obj.text}
     </p>
-    <button onClick={removeTodo}>x</button>
+     
+      <button className="removeTodo" onClick={removeTodo}>x</button>
+
   </div>
 }
 class TodoListPage extends React.Component {
@@ -32,7 +35,8 @@ class TodoListPage extends React.Component {
     newValue: "",
     inputForm: false,
     idEdit:{},
-    editIndex:{}
+    editIndex:{},
+
   };
 
   setTodos = (todos) => this.setState({ todos });
@@ -52,8 +56,18 @@ class TodoListPage extends React.Component {
   };
 
   removeTodo = (event) =>{
+    if(window.confirm('Mau di delet nih ?')){
     const remove =this.state.todos.splice(event, 1)
     this.setState({remove})
+    }
+  }
+
+  removeAllTodo = (event) =>{
+    if(window.confirm('Nggak nyesel nih dihapus semua kenanganya ?')){
+    const allTodo = this.state.todos.length
+    const remove =this.state.todos.splice(event, allTodo)
+    this.setState({remove})
+    }
   }
 
 
@@ -70,6 +84,8 @@ class TodoListPage extends React.Component {
 
   render() {
 
+    // const disabled = this.state.todos.length <= 0 ? true : false
+    const display = this.state.todos.length < 2 ? 'none' : ''
 
     return (
       <div className="todo-list">
@@ -96,7 +112,7 @@ class TodoListPage extends React.Component {
 
           </div>
         ))}
-
+        <button className="removeAllTodo" style={{'display':`${display}`}} onClick={this.removeAllTodo}>Delete all todo</button>
         {this.state.inputForm ? <EditForm 
 
                   
